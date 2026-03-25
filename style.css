@@ -39,7 +39,7 @@ main {
     min-height: calc(100vh - 220px);
 }
 
-/* Cabeçalho e Navegação estilo Alura */
+/* Cabeçalho e Navegação */
 header {
     display: flex;
     flex-direction: row;
@@ -66,8 +66,12 @@ header {
     border: 1px solid rgba(255, 255, 255, 0.14);
 }
 
+.header-brand {
+    display: flex;
+    align-items: center;
+}
+
 .header-content {
-    flex: 1;
     margin-left: 16px;
     text-align: left;
     color: #ffffff;
@@ -303,7 +307,9 @@ footer {
 
 @media (max-width: 768px) {
     header {
+        flex-direction: column;
         padding: 16px 18px;
+        gap: 16px;
     }
 
     nav {
