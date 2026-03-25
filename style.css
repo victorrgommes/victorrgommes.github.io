@@ -54,25 +54,12 @@ header {
     z-index: 999;
 }
 
-.logo {
-    max-width: 120px;
-    width: auto;
-    height: auto;
-    display: block;
-    border-radius: 8px;
-    padding: 0;
-    background-color: rgba(3, 9, 18, 0.85);
-    box-shadow: 0 8px 21px rgba(0, 0, 0, 0.38);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-}
-
 .header-brand {
     display: flex;
     align-items: center;
 }
 
 .header-content {
-    margin-left: 16px;
     text-align: left;
     color: #ffffff;
 }
