@@ -45,7 +45,7 @@ header {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 24px;
+    padding: 8px 24px;
     background: linear-gradient(90deg, #0b1b33 0%, #172a42 100%);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(8px);
@@ -55,12 +55,12 @@ header {
 }
 
 .logo {
-    max-width: 140px;
+    max-width: 120px;
     width: auto;
     height: auto;
     display: block;
     border-radius: 8px;
-    padding: 4px;
+    padding: 0;
     background-color: rgba(3, 9, 18, 0.85);
     box-shadow: 0 8px 21px rgba(0, 0, 0, 0.38);
     border: 1px solid rgba(255, 255, 255, 0.14);
@@ -108,8 +108,8 @@ nav a {
     color: #e5e7eb;
     text-decoration: none;
     font-weight: 600;
-    font-size: 0.95rem;
-    padding: 10px 12px;
+    font-size: 0.9rem;
+    padding: 8px 12px;
     border-radius: 10px;
     transition: all 0.2s ease;
     border: 1px solid transparent;
@@ -308,8 +308,8 @@ footer {
 @media (max-width: 768px) {
     header {
         flex-direction: column;
-        padding: 16px 18px;
-        gap: 16px;
+        padding: 12px 18px;
+        gap: 12px;
     }
 
     nav {
