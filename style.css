@@ -45,7 +45,7 @@ header {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 18px 24px;
+    padding: 12px 24px;
     background: linear-gradient(90deg, #0b1b33 0%, #172a42 100%);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(8px);
@@ -55,12 +55,12 @@ header {
 }
 
 .logo {
-    max-width: 180px;
+    max-width: 140px;
     width: auto;
     height: auto;
     display: block;
     border-radius: 8px;
-    padding: 6px;
+    padding: 4px;
     background-color: rgba(3, 9, 18, 0.85);
     box-shadow: 0 8px 21px rgba(0, 0, 0, 0.38);
     border: 1px solid rgba(255, 255, 255, 0.14);
@@ -75,7 +75,7 @@ header {
 
 header h1 {
     margin: 0;
-    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-size: clamp(1.5rem, 3vw, 2rem);
     font-weight: 700;
     color: #ffffff;
 }
@@ -83,7 +83,7 @@ header h1 {
 header p {
     margin: 4px 0 0;
     color: #57f4db;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     letter-spacing: 1.2px;
     text-transform: uppercase;
 }
@@ -303,7 +303,7 @@ footer {
 
 @media (max-width: 768px) {
     header {
-        padding: 36px 18px 22px;
+        padding: 16px 18px;
     }
 
     nav {
