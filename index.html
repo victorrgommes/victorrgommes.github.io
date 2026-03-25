@@ -28,7 +28,7 @@
         body {
             font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background:
-                linear-gradient(rgba(3, 5, 10, 0.78), rgba(5, 7, 13, 0.78)),
+                linear-gradient(rgba(3, 5, 10, 0.85), rgba(5, 7, 13, 0.85)),
                 url('https://images.unsplash.com/photo-1555255707-c07966088b7b?auto=format&fit=crop&w=1800&q=80') center/cover fixed;
             background-blend-mode: overlay;
             background-attachment: fixed;
@@ -49,10 +49,9 @@
         /* Cabeçalho e Navegação */
         header {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
-            justify-content: center;
-            text-align: center;
+            justify-content: space-between;
             padding: 48px 24px 28px;
             background: linear-gradient(160deg, rgba(16,22,36,0.85), rgba(27,30,51,0.95));
             border-bottom: 1px solid var(--border-color);
@@ -73,6 +72,11 @@
             height: auto;
             margin-bottom: 14px;
             display: block;
+        }
+
+        .header-content {
+            text-align: center;
+            flex: 1;
         }
 
         header p {
@@ -261,8 +265,10 @@
 
     <header>
         <img src="/assets/logo.png" alt="Logotipo GomesTech" class="logo" />
-        <h1>GomesTech</h1>
-        <p>Tecnologia | Eletrônica | Automação</p>
+        <div class="header-content">
+            <h1>GomesTech</h1>
+            <p>Tecnologia | Eletrônica | Automação</p>
+        </div>
     </header>
 
     <nav>
