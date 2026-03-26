@@ -311,12 +311,11 @@ footer {
     margin: 24px auto;
     padding: 42px 24px;
     border-radius: 16px;
-    background: linear-gradient(180deg, rgba(0, 17, 34, 0.85), rgba(6, 15, 30, 0.95)), url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
-    background-blend-mode: overlay;
-    border: 1px solid rgba(255,255,255,0.12);
-    box-shadow: 0 20px 42px rgba(0,0,0,0.45);
+    background: linear-gradient(140deg, #172a42, #0b1b33);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0 35px rgba(0, 255, 204, 0.1), 0 8px 25px rgba(0,0,0,0.4);
     color: #ffffff;
-    text-align: left;
+    text-align: center;
 }
 
 .hero h2 {
@@ -329,7 +328,9 @@ footer {
     max-width: 760px;
     font-size: 1.05rem;
     color: #dce7ff;
-    margin-bottom: 18px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 24px;
 }
 
 .hero .btn {
