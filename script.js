@@ -74,12 +74,12 @@ async function carregarNoticias() {
 
     try {
         // Usamos um feed de notícias sobre cibersegurança e o convertemos para JSON
-        const feedUrl = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ffeeds.feedburner.com%2FTheHackernews';
+        const feedUrl = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ftecnoblog.net%2Ffeed%2F';
         const response = await fetch(feedUrl);
         const data = await response.json();
 
         if (data.status !== 'ok' || data.items.length === 0) {
-            newsContainer.innerHTML = '<p style="color: #ff6b6b;">Não foi possível carregar as notícias no momento.</p>';
+            newsContainer.innerHTML = '<p style="color: #ff6b6b; text-align: center; width: 100%;">Não foi possível carregar as notícias no momento.</p>';
             return;
         }
 
