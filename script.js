@@ -138,5 +138,28 @@ async function carregarNoticias() {
     }
 }
 
+const backToTopBtn = document.getElementById('back-to-top-btn');
+
+if (backToTopBtn) {
+    // Mostra ou oculta o botão com base na posição da rolagem
+    window.addEventListener('scroll', () => {
+        // Mostra o botão após rolar 300px para baixo
+        if (window.scrollY > 300) {
+            backToTopBtn.classList.add('show');
+        } else {
+            backToTopBtn.classList.remove('show');
+        }
+    });
+
+    // Adiciona o evento de clique para rolar suavemente para o topo
+    backToTopBtn.addEventListener('click', (e) => {
+        e.preventDefault(); // Previne o comportamento padrão do link
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
 carregarRepositorios();
 carregarNoticias();
