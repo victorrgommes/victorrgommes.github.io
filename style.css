@@ -329,6 +329,27 @@ footer {
     color: #00ffcc;
 }
 
+.social-icons {
+    display: flex;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.social-icons a {
+    color: #c6d8f2; /* Same as footer text */
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.social-icons a:hover {
+    color: var(--primary-color);
+    transform: scale(1.15);
+}
+
+.social-icons svg {
+    width: 24px;
+    height: 24px;
+}
+
 .footer-links {
     list-style: none;
     padding: 0;
