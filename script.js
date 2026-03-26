@@ -5,48 +5,43 @@ const githubUsername = storedUser || defaultUsername;
 const reposContainer = document.getElementById('github-repos');
 const newsContainer = document.getElementById('news-cards');
 
-function exibirMensagem(texto, isError = false) {
-    reposContainer.innerHTML = `<p style="color: ${isError ? '#ff6b6b' : '#94a3b8'};">${texto}</p>`;
-}
-
-function mostrarCarregando() {
-    reposContainer.innerHTML = '<p style="color: #94a3b8;">Carregando projetos automáticos direto do GitHub...</p>';
-}
-
 async function carregarRepositorios() {
     try {
-        mostrarCarregando();
-        // Faz a requisição para a API pública do GitHub
-        const response = await fetch(`https://api.github.com/users/${githubUsername}/repos?sort=updated&direction=desc`);
-        
-        // Converte a resposta para JSON
-        const repos = await response.json();
+        // Verifica cache primeiro para evitar limite de requisições do GitHub (Rate Limit)
+        const cacheKey = `repos_${githubUsername}`;
+        const cachedData = sessionStorage.getItem(cacheKey);
+        let repos = [];
 
-        // Limpa a mensagem de "Carregando..."
+        if (cachedData) {
+            repos = JSON.parse(cachedData);
+        } else {
+            const response = await fetch(`https://api.github.com/users/${githubUsername}/repos?sort=updated&direction=desc`);
+            repos = await response.json();
+            
+            // Só salva no cache se for um array válido
+            if (response.ok && Array.isArray(repos)) {
+                sessionStorage.setItem(cacheKey, JSON.stringify(repos));
+            }
+        }
+
+        // Limpa os Skeletons fixos originais da página web
         reposContainer.innerHTML = '';
 
-        // Verifica se o usuário existe ou se tem repositórios
-        if (repos.message === "Not Found" || repos.length === 0) {
+        if (repos.message === "Not Found" || !Array.isArray(repos) || repos.length === 0) {
             reposContainer.innerHTML = '<p>Nenhum repositório encontrado ou usuário incorreto.</p>';
             return;
         }
 
-        // Pega apenas os 6 projetos mais recentes
         const projetosRecentes = repos.slice(0, 6);
-
-        // Cria um DocumentFragment para melhor performance
         const fragment = document.createDocumentFragment();
 
         projetosRecentes.forEach(repo => {
-            // Ignora repositórios que são apenas cópias (forks)
             if (!repo.fork) {
-                const card = document.createElement('div');
+                const card = document.createElement('article'); // Melhor semântica
                 card.className = 'card';
                 
-                // Formata a data de atualização
                 const dataAtualizacao = new Date(repo.updated_at).toLocaleDateString('pt-BR');
 
-                // Monta o visual do Card
                 card.innerHTML = `
                     <div>
                         <div class="card-header">
@@ -59,12 +54,10 @@ async function carregarRepositorios() {
                     <a href="${repo.html_url}" target="_blank" class="btn">Ver Código-Fonte</a>
                 `;
                 
-                // Adiciona o Card na página
                 fragment.appendChild(card);
             }
         });
 
-        // Adiciona todos os cards de uma vez ao DOM
         reposContainer.appendChild(fragment);
     } catch (error) {
         reposContainer.innerHTML = '<p style="color: #ff4444;">Erro ao sincronizar com o GitHub no momento. Verifique sua conexão.</p>';
@@ -76,7 +69,8 @@ async function carregarRepositorios() {
 async function carregarNoticias() {
     if (!newsContainer) return; // Se o container não existir, não faz nada
 
-    newsContainer.innerHTML = '<p style="color: #94a3b8; text-align: center; width: 100%;">Carregando notícias...</p>';
+    // Mantemos os Skeletons definidos no HTML renderizando, para uma sensação melhor
+    // de que o conteúdo está carregando dinamicamente e já tem espaço na tela
 
     try {
         // Usamos um feed de notícias sobre cibersegurança e o convertemos para JSON
@@ -89,7 +83,7 @@ async function carregarNoticias() {
             return;
         }
 
-        newsContainer.innerHTML = ''; // Limpa a mensagem de "carregando"
+        newsContainer.innerHTML = ''; // Limpa os esqueletos
 
         const articles = data.items.slice(0, 4); // Pega os 4 primeiros artigos
 
@@ -105,14 +99,14 @@ async function carregarNoticias() {
             const cleanDescription = (tempDiv.textContent || tempDiv.innerText || "").substring(0, 100) + '...';
 
             slide.innerHTML = `
-                <div class="card">
+                <article class="card">
                     <div>
-                        <img src="${article.thumbnail}" alt="" class="news-thumbnail">
+                        <img src="${article.thumbnail}" alt="Capa da notícia" class="news-thumbnail" loading="lazy">
                         <h3 title="${article.title}">${article.title}</h3>
                         <p>${cleanDescription}</p>
                     </div>
                     <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="btn">Ler Artigo</a>
-                </div>
+                </article>
             `;
             fragment.appendChild(slide);
         });
@@ -141,53 +135,78 @@ async function carregarNoticias() {
 const backToTopBtn = document.getElementById('back-to-top-btn');
 
 if (backToTopBtn) {
-    // Mostra ou oculta o botão com base na posição da rolagem
-    window.addEventListener('scroll', () => {
-        // Mostra o botão após rolar 300px para baixo
-        if (window.scrollY > 300) {
-            backToTopBtn.classList.add('show');
-        } else {
-            backToTopBtn.classList.remove('show');
-        }
-    });
-
     // Adiciona o evento de clique para rolar suavemente para o topo
     backToTopBtn.addEventListener('click', (e) => {
-        e.preventDefault(); // Previne o comportamento padrão do link
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+// Menu Mobile Logic
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const navbar = document.getElementById('navbar');
+
+if (mobileMenuBtn && navbar) {
+    mobileMenuBtn.addEventListener('click', () => {
+        const expanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+        mobileMenuBtn.setAttribute('aria-expanded', !expanded);
+        navbar.classList.toggle('nav-active');
+    });
+
+    // Fecha o menu ao clicar num link (mobile)
+    navbar.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            navbar.classList.remove('nav-active');
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
         });
     });
 }
 
-// Scrollspy para destacar o link de navegação ativo
-const navLinks = document.querySelectorAll('nav a');
+// Intersection Observer para Scrollspy (Substitui o scroll listener longo)
+const navLinks = document.querySelectorAll('#navbar a');
 const sections = document.querySelectorAll('section[id]');
+const heroSection = document.querySelector('.hero');
 
-function highlightNavLink() {
-    let scrollY = window.scrollY;
+const observerOptions = {
+    root: null,
+    rootMargin: '-40% 0px -60% 0px', // Aciona quando o elemento cruza uma linha imaginária perto do meio da tela
+    threshold: 0
+};
 
-    // Adiciona um offset para melhor precisão, considerando o cabeçalho fixo
-    const offset = 150;
-
-    sections.forEach(current => {
-        const sectionTop = current.offsetTop - offset;
-        const sectionHeight = current.offsetHeight;
-        const sectionId = current.getAttribute('id');
-        const correspondingLink = document.querySelector(`nav a[href*="${sectionId}"]`);
-
-        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-            navLinks.forEach(link => link.classList.remove('active'));
-            if (correspondingLink) {
-                correspondingLink.classList.add('active');
+const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                link.removeAttribute('aria-current');
+            });
+            const activeLink = document.querySelector(`#navbar a[href="#${entry.target.id}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+                activeLink.setAttribute('aria-current', 'page');
             }
         }
     });
-}
+}, observerOptions);
 
-window.addEventListener('scroll', highlightNavLink);
-document.addEventListener('DOMContentLoaded', highlightNavLink);
+sections.forEach(section => {
+    sectionObserver.observe(section);
+});
+
+// Observer para o Botão Voltar ao Topo (Substitui scroll listener)
+if (heroSection && backToTopBtn) {
+    const heroObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+    }, { threshold: 0 });
+    
+    heroObserver.observe(heroSection);
+}
 
 carregarRepositorios();
 carregarNoticias();

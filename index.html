@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Meta Tags para SEO e Open Graph (Compartilhamento do Link) -->
+    <meta name="description" content="GomesTech - Conectando tecnologia, automação e desenvolvimento para transformar ideias em soluções reais. Aprenda com Victor Gomes.">
+    <meta property="og:title" content="Victor Gomes | GomesTech">
+    <meta property="og:description" content="Portfólio e Blog focado em Tecnologia, Eletrônica e Automação criado por Victor Gomes.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1555255707-c07966088b7b?auto=format&fit=crop&w=1200&q=80">
+    <meta property="og:type" content="website">
+    <!-- Favicon (Usando SVG genérico de Foguete por enquanto) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
     <title>Victor Gomes | GomesTech</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -17,7 +25,11 @@
                 <p>Tecnologia | Eletrônica | Automação</p>
             </div>
         </div>
-        <nav>
+        <!-- Botão Menu Hambúrguer para Mobile -->
+        <button id="mobile-menu-btn" aria-label="Abrir Menu" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        <nav id="navbar">
             <a href="#sobre">Sobre Mim</a>
             <a href="#noticias">Notícias TI</a>
             <a href="#projetos">Projetos GitHub</a>
@@ -35,7 +47,7 @@
     <section id="sobre">
         <div class="about-container">
             <!-- Recomendo usar uma foto sua aqui (ex: 180x180 pixels) -->
-            <img src="/assets/victorfoto.png" alt="Foto de Victor Gomes" class="profile-pic">
+            <img src="/assets/victorfoto.png" alt="Foto de Victor Gomes" class="profile-pic" loading="lazy">
             <div class="about-text">
                 <h2>Olá, sou Victor Gomes</h2>
                 <p>Sou Analista de TI e Desenvolvedor apaixonado por automação, especialista em criar scripts e sistemas que transformam processos complexos em fluxos simples e inteligentes.</p>
@@ -56,7 +68,9 @@
         <div class="swiper news-carousel">
             <!-- Additional required wrapper -->
             <div class="swiper-wrapper" id="news-cards">
-                <!-- Slides com notícias serão injetados aqui pelo JavaScript -->
+                <!-- Esqueletos visuais serão exibidos até o carregamento via JS -->
+                <div class="swiper-slide"><div class="card skeleton-card"><div class="skeleton" style="height: 160px; width: 100%; border-radius: 8px; margin-bottom: 15px;"></div><div class="skeleton skeleton-text" style="height: 24px; width: 80%; margin-bottom: 10px;"></div><div class="skeleton skeleton-text" style="height: 16px; width: 100%; margin-bottom: 30px;"></div><div class="skeleton skeleton-text" style="height: 38px; width: 100%; border-radius: 8px;"></div></div></div>
+                <div class="swiper-slide"><div class="card skeleton-card"><div class="skeleton" style="height: 160px; width: 100%; border-radius: 8px; margin-bottom: 15px;"></div><div class="skeleton skeleton-text" style="height: 24px; width: 80%; margin-bottom: 10px;"></div><div class="skeleton skeleton-text" style="height: 16px; width: 100%; margin-bottom: 30px;"></div><div class="skeleton skeleton-text" style="height: 38px; width: 100%; border-radius: 8px;"></div></div></div>
             </div>
             <!-- Navigation buttons -->
             <div class="swiper-button-prev"></div>
@@ -67,7 +81,10 @@
     <section id="projetos">
         <h2>Portfólio de Projetos no GitHub</h2>
         <div class="grid-container" id="github-repos">
-            <p>Carregando projetos automáticos direto do GitHub...</p>
+            <!-- Esqueletos serão substituídos pelo JS quando carregarem -->
+            <div class="card skeleton-card"><div class="skeleton skeleton-text" style="height: 24px; width: 60%; margin-bottom: 20px;"></div><div class="skeleton skeleton-text" style="height: 16px; width: 100%; margin-bottom: 10px;"></div><div class="skeleton skeleton-text" style="height: 16px; width: 80%; margin-bottom: 30px;"></div><div class="skeleton skeleton-text" style="height: 38px; width: 100%; border-radius: 8px;"></div></div>
+            <div class="card skeleton-card"><div class="skeleton skeleton-text" style="height: 24px; width: 60%; margin-bottom: 20px;"></div><div class="skeleton skeleton-text" style="height: 16px; width: 100%; margin-bottom: 10px;"></div><div class="skeleton skeleton-text" style="height: 16px; width: 80%; margin-bottom: 30px;"></div><div class="skeleton skeleton-text" style="height: 38px; width: 100%; border-radius: 8px;"></div></div>
+            <div class="card skeleton-card"><div class="skeleton skeleton-text" style="height: 24px; width: 60%; margin-bottom: 20px;"></div><div class="skeleton skeleton-text" style="height: 16px; width: 100%; margin-bottom: 10px;"></div><div class="skeleton skeleton-text" style="height: 16px; width: 80%; margin-bottom: 30px;"></div><div class="skeleton skeleton-text" style="height: 38px; width: 100%; border-radius: 8px;"></div></div>
         </div>
     </section>
 
