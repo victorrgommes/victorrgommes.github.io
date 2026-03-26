@@ -233,6 +233,7 @@ p {
     /* Garante que títulos longos não quebrem o layout */
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
