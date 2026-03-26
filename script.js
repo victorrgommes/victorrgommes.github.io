@@ -161,5 +161,33 @@ if (backToTopBtn) {
     });
 }
 
+// Scrollspy para destacar o link de navegação ativo
+const navLinks = document.querySelectorAll('nav a');
+const sections = document.querySelectorAll('section[id]');
+
+function highlightNavLink() {
+    let scrollY = window.scrollY;
+
+    // Adiciona um offset para melhor precisão, considerando o cabeçalho fixo
+    const offset = 150;
+
+    sections.forEach(current => {
+        const sectionTop = current.offsetTop - offset;
+        const sectionHeight = current.offsetHeight;
+        const sectionId = current.getAttribute('id');
+        const correspondingLink = document.querySelector(`nav a[href*="${sectionId}"]`);
+
+        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+            navLinks.forEach(link => link.classList.remove('active'));
+            if (correspondingLink) {
+                correspondingLink.classList.add('active');
+            }
+        }
+    });
+}
+
+window.addEventListener('scroll', highlightNavLink);
+document.addEventListener('DOMContentLoaded', highlightNavLink);
+
 carregarRepositorios();
 carregarNoticias();
