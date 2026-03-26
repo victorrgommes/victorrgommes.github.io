@@ -3,6 +3,7 @@ const defaultUsername = 'victorrgommes';
 const storedUser = localStorage.getItem('githubUsername');
 const githubUsername = storedUser || defaultUsername;
 const reposContainer = document.getElementById('github-repos');
+const newsContainer = document.getElementById('news-cards');
 
 function exibirMensagem(texto, isError = false) {
     reposContainer.innerHTML = `<p style="color: ${isError ? '#ff6b6b' : '#94a3b8'};">${texto}</p>`;
@@ -66,4 +67,65 @@ async function carregarRepositorios() {
 }
 
 // Executa a função
+async function carregarNoticias() {
+    if (!newsContainer) return; // Se o container não existir, não faz nada
+
+    newsContainer.innerHTML = '<p style="color: #94a3b8; text-align: center; width: 100%;">Carregando notícias...</p>';
+
+    try {
+        // Usamos um feed de notícias sobre cibersegurança e o convertemos para JSON
+        const feedUrl = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Ffeeds.feedburner.com%2FTheHackernews';
+        const response = await fetch(feedUrl);
+        const data = await response.json();
+
+        if (data.status !== 'ok' || data.items.length === 0) {
+            newsContainer.innerHTML = '<p style="color: #ff6b6b;">Não foi possível carregar as notícias no momento.</p>';
+            return;
+        }
+
+        newsContainer.innerHTML = ''; // Limpa a mensagem de "carregando"
+
+        const articles = data.items.slice(0, 4); // Pega os 4 primeiros artigos
+
+        articles.forEach(article => {
+            const slide = document.createElement('div');
+            slide.className = 'swiper-slide';
+
+            // Limpa e encurta a descrição
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = article.description;
+            const cleanDescription = (tempDiv.textContent || tempDiv.innerText || "").substring(0, 100) + '...';
+
+            slide.innerHTML = `
+                <div class="card">
+                    <div>
+                        <img src="${article.thumbnail}" alt="" class="news-thumbnail">
+                        <h3 title="${article.title}">${article.title}</h3>
+                        <p>${cleanDescription}</p>
+                    </div>
+                    <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="btn">Ler Artigo</a>
+                </div>
+            `;
+            newsContainer.appendChild(slide);
+        });
+
+        // Inicializa o Swiper (carrossel)
+        new Swiper('.news-carousel', {
+            loop: false,
+            slidesPerView: 1,
+            spaceBetween: 20,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+        });
+
+    } catch (error) {
+        newsContainer.innerHTML = '<p style="color: #ff4444;">Erro ao buscar notícias. Verifique sua conexão.</p>';
+        console.error('Erro ao buscar notícias:', error);
+    }
+}
+
 carregarRepositorios();
+carregarNoticias();

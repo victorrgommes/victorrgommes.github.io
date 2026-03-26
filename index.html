@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Victor Gomes | GomesTech</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="script.js" defer></script>
 </head>
 <body>
@@ -49,18 +50,16 @@
     </section>
 
     <section id="noticias">
-        <h2>Notícias & Artigos (Desenvolvimento e Cibersegurança)</h2>
-        <div class="grid-container">
-            <div class="card">
-                <h3>Como proteger sua rede local</h3>
-                <p>As melhores práticas de cibersegurança para pequenas e médias empresas contra ataques de ransomware.</p>
-                <a href="#" class="btn">Ler Artigo</a>
+        <h2>Notícias de Cibersegurança (Fonte: The Hacker News)</h2>
+        <!-- Slider main container -->
+        <div class="swiper news-carousel">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper" id="news-cards">
+                <!-- Slides com notícias serão injetados aqui pelo JavaScript -->
             </div>
-            <div class="card">
-                <h3>O poder do Python na automação</h3>
-                <p>Descubra como rotinas simples podem economizar horas de trabalho manual em sistemas de gestão.</p>
-                <a href="#" class="btn">Ler Artigo</a>
-            </div>
+            <!-- Navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
         </div>
     </section>
 
@@ -113,6 +112,8 @@
         </div>
         <div class="footer-bottom">&copy; 2026 GomesTech - Victor de Souza Gomes. Todos os direitos reservados.</div>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 </body>
 </html>
