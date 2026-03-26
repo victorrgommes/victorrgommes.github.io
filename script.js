@@ -34,6 +34,9 @@ async function carregarRepositorios() {
         // Pega apenas os 6 projetos mais recentes
         const projetosRecentes = repos.slice(0, 6);
 
+        // Cria um DocumentFragment para melhor performance
+        const fragment = document.createDocumentFragment();
+
         projetosRecentes.forEach(repo => {
             // Ignora repositórios que são apenas cópias (forks)
             if (!repo.fork) {
@@ -57,9 +60,12 @@ async function carregarRepositorios() {
                 `;
                 
                 // Adiciona o Card na página
-                reposContainer.appendChild(card);
+                fragment.appendChild(card);
             }
         });
+
+        // Adiciona todos os cards de uma vez ao DOM
+        reposContainer.appendChild(fragment);
     } catch (error) {
         reposContainer.innerHTML = '<p style="color: #ff4444;">Erro ao sincronizar com o GitHub no momento. Verifique sua conexão.</p>';
         console.error('Erro de conexão com o GitHub:', error);
@@ -87,6 +93,8 @@ async function carregarNoticias() {
 
         const articles = data.items.slice(0, 4); // Pega os 4 primeiros artigos
 
+        const fragment = document.createDocumentFragment();
+
         articles.forEach(article => {
             const slide = document.createElement('div');
             slide.className = 'swiper-slide';
@@ -106,8 +114,11 @@ async function carregarNoticias() {
                     <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="btn">Ler Artigo</a>
                 </div>
             `;
-            newsContainer.appendChild(slide);
+            fragment.appendChild(slide);
         });
+
+        // Adiciona todos os slides de uma vez
+        newsContainer.appendChild(fragment);
 
         // Inicializa o Swiper (carrossel)
         new Swiper('.news-carousel', {
