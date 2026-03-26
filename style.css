@@ -206,9 +206,23 @@ p {
     border-color: var(--primary-color);
 }
 
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0.85rem;
+}
+
+.github-icon {
+    width: 20px;
+    height: 20px;
+    stroke: var(--primary-color);
+    flex-shrink: 0;
+}
+
 .card h3 {
     margin-top: 0;
-    margin-bottom: 0.85rem;
+    margin-bottom: 0;
     line-height: 1.3;
 }
 
