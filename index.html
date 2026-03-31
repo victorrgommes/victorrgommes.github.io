@@ -11,12 +11,15 @@
     <meta property="og:type" content="website">
     <!-- Favicon (Usando SVG genérico de Foguete por enquanto) -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <title>Victor Gomes | GomesTech</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="script.js" defer></script>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
 
     <header>
         <div class="header-brand">
@@ -43,11 +46,11 @@
         <a href="#projetos" class="btn">Ver Projetos e Cursos</a>
     </section>
 
-    <main>
+    <main id="main-content">
     <section id="sobre">
         <div class="about-container">
             <!-- Recomendo usar uma foto sua aqui (ex: 180x180 pixels) -->
-            <img src="/assets/victorfoto.png" alt="Foto de Victor Gomes" class="profile-pic" loading="lazy">
+            <img src="/assets/victorfoto.png" alt="Foto de Victor Gomes" class="profile-pic" loading="lazy" width="180" height="180">
             <div class="about-text">
                 <h2>Olá, sou Victor Gomes</h2>
                 <p>Sou Analista de TI e Desenvolvedor apaixonado por automação, especialista em criar scripts e sistemas que transformam processos complexos em fluxos simples e inteligentes.</p>
@@ -69,8 +72,8 @@
             <!-- Additional required wrapper -->
             <div class="swiper-wrapper" id="news-cards">
                 <!-- Esqueletos visuais serão exibidos até o carregamento via JS -->
-                <div class="swiper-slide"><div class="card skeleton-card"><div class="skeleton" style="height: 160px; width: 100%; border-radius: 8px; margin-bottom: 15px;"></div><div class="skeleton skeleton-text" style="height: 24px; width: 80%; margin-bottom: 10px;"></div><div class="skeleton skeleton-text" style="height: 16px; width: 100%; margin-bottom: 30px;"></div><div class="skeleton skeleton-text" style="height: 38px; width: 100%; border-radius: 8px;"></div></div></div>
-                <div class="swiper-slide"><div class="card skeleton-card"><div class="skeleton" style="height: 160px; width: 100%; border-radius: 8px; margin-bottom: 15px;"></div><div class="skeleton skeleton-text" style="height: 24px; width: 80%; margin-bottom: 10px;"></div><div class="skeleton skeleton-text" style="height: 16px; width: 100%; margin-bottom: 30px;"></div><div class="skeleton skeleton-text" style="height: 38px; width: 100%; border-radius: 8px;"></div></div></div>
+                <div class="swiper-slide"><div class="card skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text-medium"></div><div class="skeleton skeleton-btn"></div></div></div>
+                <div class="swiper-slide"><div class="card skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-text-medium"></div><div class="skeleton skeleton-btn"></div></div></div>
             </div>
             <!-- Navigation buttons -->
             <div class="swiper-button-prev"></div>
@@ -82,9 +85,9 @@
         <h2>Portfólio de Projetos no GitHub</h2>
         <div class="grid-container" id="github-repos">
             <!-- Esqueletos serão substituídos pelo JS quando carregarem -->
-            <div class="card skeleton-card"><div class="skeleton skeleton-text" style="height: 24px; width: 60%; margin-bottom: 20px;"></div><div class="skeleton skeleton-text" style="height: 16px; width: 100%; margin-bottom: 10px;"></div><div class="skeleton skeleton-text" style="height: 16px; width: 80%; margin-bottom: 30px;"></div><div class="skeleton skeleton-text" style="height: 38px; width: 100%; border-radius: 8px;"></div></div>
-            <div class="card skeleton-card"><div class="skeleton skeleton-text" style="height: 24px; width: 60%; margin-bottom: 20px;"></div><div class="skeleton skeleton-text" style="height: 16px; width: 100%; margin-bottom: 10px;"></div><div class="skeleton skeleton-text" style="height: 16px; width: 80%; margin-bottom: 30px;"></div><div class="skeleton skeleton-text" style="height: 38px; width: 100%; border-radius: 8px;"></div></div>
-            <div class="card skeleton-card"><div class="skeleton skeleton-text" style="height: 24px; width: 60%; margin-bottom: 20px;"></div><div class="skeleton skeleton-text" style="height: 16px; width: 100%; margin-bottom: 10px;"></div><div class="skeleton skeleton-text" style="height: 16px; width: 80%; margin-bottom: 30px;"></div><div class="skeleton skeleton-text" style="height: 38px; width: 100%; border-radius: 8px;"></div></div>
+            <div class="card skeleton-card"><div class="skeleton skeleton-title width-60"></div><div class="skeleton skeleton-text-short"></div><div class="skeleton skeleton-text-medium"></div><div class="skeleton skeleton-btn"></div></div>
+            <div class="card skeleton-card"><div class="skeleton skeleton-title width-60"></div><div class="skeleton skeleton-text-short"></div><div class="skeleton skeleton-text-medium"></div><div class="skeleton skeleton-btn"></div></div>
+            <div class="card skeleton-card"><div class="skeleton skeleton-title width-60"></div><div class="skeleton skeleton-text-short"></div><div class="skeleton skeleton-text-medium"></div><div class="skeleton skeleton-btn"></div></div>
         </div>
     </section>
 
@@ -95,13 +98,13 @@
                 <h3>Guia Definitivo: Automação para Suporte de TI</h3>
                 <p>Aprenda a criar scripts em PowerShell e Python para resolver problemas de infraestrutura em segundos.</p>
                 <p class="price">R$ 47,90</p>
-                <a href="#" class="btn">Comprar Agora</a>
+                <a href="#" class="btn btn-external">Comprar Agora <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="external-icon"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
             </div>
             <div class="card">
                 <h3>Produtividade com Power Automate</h3>
                 <p>Integre fluxos de trabalho e elimine tarefas repetitivas do seu dia a dia sem precisar saber programar.</p>
                 <p class="price">R$ 35,90</p>
-                <a href="#" class="btn">Comprar Agora</a>
+                <a href="#" class="btn btn-external">Comprar Agora <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="external-icon"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
             </div>
         </div>
     </section>

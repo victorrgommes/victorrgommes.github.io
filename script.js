@@ -5,6 +5,21 @@ const githubUsername = storedUser || defaultUsername;
 const reposContainer = document.getElementById('github-repos');
 const newsContainer = document.getElementById('news-cards');
 
+// Função auxiliar para evitar XSS ao injetar dados externos no DOM
+function escapeHTML(str) {
+    if (!str) return '';
+    return str.toString().replace(/[&<>'"]/g, function(tag) {
+        const charsToReplace = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            "'": '&#39;',
+            '"': '&quot;'
+        };
+        return charsToReplace[tag] || tag;
+    });
+}
+
 async function carregarRepositorios() {
     try {
         // Verifica cache primeiro para evitar limite de requisições do GitHub (Rate Limit)
@@ -46,12 +61,12 @@ async function carregarRepositorios() {
                     <div>
                         <div class="card-header">
                             <svg class="github-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                            <h3>${repo.name}</h3>
+                            <h3>${escapeHTML(repo.name)}</h3>
                         </div>
-                        <p>${repo.description || 'Nenhuma descrição fornecida para este projeto.'}</p>
+                        <p>${escapeHTML(repo.description) || 'Nenhuma descrição fornecida para este projeto.'}</p>
                         <small style="color: var(--text-color); opacity: 0.7;">Último commit: ${dataAtualizacao}</small>
                     </div>
-                    <a href="${repo.html_url}" target="_blank" class="btn">Ver Código-Fonte</a>
+                    <a href="${escapeHTML(repo.html_url)}" target="_blank" class="btn btn-external">Ver Código-Fonte <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="external-icon"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
                 `;
                 
                 fragment.appendChild(card);
@@ -101,11 +116,11 @@ async function carregarNoticias() {
             slide.innerHTML = `
                 <article class="card">
                     <div>
-                        <img src="${article.thumbnail}" alt="Capa da notícia" class="news-thumbnail" loading="lazy">
-                        <h3 title="${article.title}">${article.title}</h3>
-                        <p>${cleanDescription}</p>
+                        <img src="${escapeHTML(article.thumbnail)}" alt="Capa da notícia" class="news-thumbnail" loading="lazy">
+                        <h3 title="${escapeHTML(article.title)}">${escapeHTML(article.title)}</h3>
+                        <p>${escapeHTML(cleanDescription)}</p>
                     </div>
-                    <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="btn">Ler Artigo</a>
+                    <a href="${escapeHTML(article.link)}" target="_blank" rel="noopener noreferrer" class="btn btn-external">Ler Artigo <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="external-icon"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
                 </article>
             `;
             fragment.appendChild(slide);
